@@ -2,9 +2,15 @@ var currDayEl = $("#currentDay");
 var rowContainer = $(".row");
 currDayEl.text(moment().format("dddd, MMMM Do YYYY"));
 
-var refreshInterval = function () {
-    setInterval (auditTask(),1000*60*60)
-}
+    var timeCheck = 3600000 - (moment().minutes() * 60 * 1000 + moment().seconds()* 1000)
+    setTimeout (function() {
+        auditTask();
+        setInterval (auditTask,1000*60*60);
+    }, timeCheck+3000)
+
+console.log(3600000 - moment().minutes() * 60 * 1000 + moment().seconds()* 1000)
+
+
 
 var task = {    
     "9": [""],
@@ -34,7 +40,7 @@ function loadTask () {
 var createTask = function (taskItem, time) {
     var task = time.find(".task");
     var taskP = $("<p>")
-        .addClass("content")
+        .addClass("description")
         .text(taskItem);
     task.html(taskP)
 }
@@ -67,10 +73,10 @@ rowContainer.on("click",".task", function(){
         .text()
         .trim();
     var textInput = $("<textarea>")
-        .addClass("col form-contorl")
+        .addClass("form-control")
         .attr("style","border: none")
         .val(text);
-    $(this).find(".content").replaceWith(textInput);
+    $(this).find(".description").replaceWith(textInput);
     textInput.trigger("focus");
 })
 
@@ -80,7 +86,7 @@ rowContainer.on("blur","textarea", function(){
     .trim();   
     
     var revert = $("<p>")
-        .addClass("content")
+        .addClass("description")
         .text(text);
 
     $(this).replaceWith(revert);
@@ -89,7 +95,7 @@ rowContainer.on("blur","textarea", function(){
 $(".saveBtn").click(function() {
     var text = $(this)
     .parent(".row")
-    .find(".content")
+    .find(".description")
     .text();   
 
     var status = $(this)
@@ -106,4 +112,4 @@ var saveTask = function () {
 }
 
 loadTask()
-refreshInterval()
+// refreshInterval()
