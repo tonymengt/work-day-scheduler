@@ -2,11 +2,35 @@ var currDayEl = $("#currentDay");
 var rowContainer = $(".row");
 currDayEl.text(moment().format("dddd, MMMM Do YYYY"));
 
+
+var auditTask = function (){
+    var currentHr = moment().hour();
+    $(".task").each(function(){
+        var indexHr = parseInt($(this).parent(".row").attr("id"))
+
+    if (currentHr < indexHr) {
+        $(this).addClass("future")
+        $(this).removeClass("present")
+        $(this).removeClass("past")
+    } 
+    if (currentHr == indexHr) {
+        $(this).removeClass("future")
+        $(this).addClass("present")
+        $(this).removeClass("past")
+    }
+    if (currentHr > indexHr) {
+        $(this).removeClass("future")
+        $(this).removeClass("present")
+        $(this).addClass("past")
+    }
+    })
+}
+
     var timeCheck = 3600000 - (moment().minutes() * 60 * 1000 + moment().seconds()* 1000)
     setTimeout (function() {
         auditTask();
         setInterval (auditTask,1000*60*60);
-    }, timeCheck+3000)
+    }, timeCheck)
 
 console.log(3600000 - moment().minutes() * 60 * 1000 + moment().seconds()* 1000)
 
@@ -43,29 +67,6 @@ var createTask = function (taskItem, time) {
         .addClass("description")
         .text(taskItem);
     task.html(taskP)
-}
-
-var auditTask = function (){
-    var currentHr = moment().hour();
-    $(".task").each(function(){
-        var indexHr = parseInt($(this).parent(".row").attr("id"))
-
-    if (currentHr < indexHr) {
-        $(this).addClass("future")
-        $(this).removeClass("present")
-        $(this).removeClass("past")
-    } 
-    if (currentHr == indexHr) {
-        $(this).removeClass("future")
-        $(this).addClass("present")
-        $(this).removeClass("past")
-    }
-    if (currentHr > indexHr) {
-        $(this).removeClass("future")
-        $(this).removeClass("present")
-        $(this).addClass("past")
-    }
-    })
 }
 
 rowContainer.on("click",".task", function(){
