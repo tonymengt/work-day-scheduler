@@ -23,3 +23,4 @@ This application is meant to track events/task through the working hour (9-5) fo
 * Moment Js
 
 ## Website
+https://tonymengt.github.io/work-day-scheduler/
