@@ -9,7 +9,7 @@ This application is meant to track events/task through the working hour (9-5) fo
 
 
 * User is able to edit each time block and data is saved once the save icon is selected. Each time you'd like to save a task, the corrisponding save button needs to be clicked in order to save the task into local storage. 
-<img src="./assets/img/.save-data.png" width ="300">
+<img src="./assets/img/save-data.png" width ="300">
 
 * data is then loaded when page is refreshed or reopened
 <img src="./assets/img/data-load.png" width ="300">
